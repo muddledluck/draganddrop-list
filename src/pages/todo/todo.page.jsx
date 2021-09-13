@@ -13,10 +13,16 @@ export default class Todo extends Component {
         { id: "d", title: "title4" },
       ],
       list1: [
-        { id: "a1", title: "title12" },
-        { id: "b1", title: "title22" },
-        { id: "c1", title: "title32" },
-        { id: "d1", title: "title42" },
+        { id: "a1", title: "title11" },
+        { id: "b1", title: "title21" },
+        { id: "c1", title: "title31" },
+        { id: "d1", title: "title41" },
+      ],
+      list2: [
+        { id: "a2", title: "title12" },
+        { id: "b2", title: "title22" },
+        { id: "c2", title: "title32" },
+        { id: "d2", title: "title42" },
       ],
     };
   }
@@ -41,7 +47,7 @@ export default class Todo extends Component {
           <Droppable droppableId="list">
             {(provided) => (
               <ul
-                className="list"
+                style={{ border: "1px solid", margin: "5px 5px" }}
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
@@ -69,11 +75,39 @@ export default class Todo extends Component {
           <Droppable droppableId="list1">
             {(provided) => (
               <ul
-                className="list1"
+                style={{ border: "1px solid", margin: "5px 5px" }}
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
                 {this.state.list1.map((elem, idx) => {
+                  return (
+                    <Draggable key={elem.id} draggableId={elem.id} index={idx}>
+                      {(provided) => {
+                        return (
+                          <li
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                          >
+                            <Card title={elem.title} />
+                          </li>
+                        );
+                      }}
+                    </Draggable>
+                  );
+                })}
+                {provided.placeholder}
+              </ul>
+            )}
+          </Droppable>
+          <Droppable droppableId="list2">
+            {(provided) => (
+              <ul
+                style={{ border: "1px solid", margin: "5px 5px" }}
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {this.state.list2.map((elem, idx) => {
                   return (
                     <Draggable key={elem.id} draggableId={elem.id} index={idx}>
                       {(provided) => {
